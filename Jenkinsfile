@@ -1,39 +1,11 @@
 pipeline {
-  agent any {
-
-
-        kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    some-label: docker
-spec:
-  containers:
-    - name: jnlp
-      image: jenkins/inbound-agent
-      args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-    - name: docker
-      image: docker:20.10.24
-      command:
-        - cat
-      tty: true
-      volumeMounts:
-        - name: docker-graph-storage
-          mountPath: /var/lib/docker
-  volumes:
-    - name: docker-graph-storage
-      emptyDir: {}
-"""
-            defaultContainer 'docker'
-        }
-}
+  agent any
 
   environment {
     NAME = "solar-system"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "siddharth67"
+#    ARGOCD_TOKEN = credentials('argocd-token')
     GITEA_TOKEN = credentials('my-git-creds')
   }
   
@@ -60,6 +32,24 @@ spec:
       }
     }
 
+#    stage('Clone/Pull Repo') {
+#      steps {
+#        script {
+#          if (fileExists('gitops-argocd')) {
+##
+#            echo 'Cloned repo already exists - Pulling latest changes'
+#
+#            dir("gitops-argocd") {
+#              sh 'git pull'
+#            }
+#
+#          } else {
+#            echo 'Repo does not exists - Cloning the repo'
+#            sh 'git clone -b feature-gitea http://139.59.21.103:3000/siddharth/gitops-argocd'
+#          }
+#        }
+#      }
+#    }
     
     stage('Update Manifest') {
       steps {
