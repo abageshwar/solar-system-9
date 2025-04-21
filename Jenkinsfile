@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent any {
 
 
         kubernetes {
@@ -28,8 +28,7 @@ spec:
 """
             defaultContainer 'docker'
         }
-    }
-
+}
 
   environment {
     NAME = "solar-system"
