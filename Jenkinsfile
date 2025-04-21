@@ -1,5 +1,6 @@
 pipeline {
-    agent {
+  agent any
+
   environment {
     NAME = "solar-system"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
