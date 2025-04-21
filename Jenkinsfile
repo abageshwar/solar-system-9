@@ -5,7 +5,6 @@ pipeline {
     NAME = "solar-system"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "siddharth67"
-#    ARGOCD_TOKEN = credentials('argocd-token')
     GITEA_TOKEN = credentials('my-git-creds')
   }
   
@@ -32,24 +31,6 @@ pipeline {
       }
     }
 
-#    stage('Clone/Pull Repo') {
-#      steps {
-#        script {
-#          if (fileExists('gitops-argocd')) {
-##
-#            echo 'Cloned repo already exists - Pulling latest changes'
-#
-#            dir("gitops-argocd") {
-#              sh 'git pull'
-#            }
-#
-#          } else {
-#            echo 'Repo does not exists - Cloning the repo'
-#            sh 'git clone -b feature-gitea http://139.59.21.103:3000/siddharth/gitops-argocd'
-#          }
-#        }
-#      }
-#    }
     
     stage('Update Manifest') {
       steps {
