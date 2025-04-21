@@ -1,6 +1,36 @@
 pipeline {
   agent any
 
+
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    some-label: docker
+spec:
+  containers:
+    - name: jnlp
+      image: jenkins/inbound-agent
+      args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
+    - name: docker
+      image: docker:20.10.24
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: docker-graph-storage
+          mountPath: /var/lib/docker
+  volumes:
+    - name: docker-graph-storage
+      emptyDir: {}
+"""
+            defaultContainer 'docker'
+        }
+    }
+
+
   environment {
     NAME = "solar-system"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
