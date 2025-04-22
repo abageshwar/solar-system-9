@@ -57,10 +57,6 @@ stage('Push Image') {
     stage('Update Manifest') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
-          sh 'ls -la'
-          sh 'pwd'
-          sh 'cd gitops-argocd/jenkins-demo'
-          sh 'ls -la'
           sh 'sed -i "s#abagesh1904.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
           sh 'cat deployment.yaml'
         }
