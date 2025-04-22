@@ -5,7 +5,7 @@ pipeline {
     NAME = "solar-system-9"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "abagesh1904"
-    GIT_TOKEN = credentials('git-creds')
+     GIT_TOKEN = credentials('git-creds')
     GIT_CREDENTIALS = credentials('token')
   }
   
