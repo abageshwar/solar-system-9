@@ -6,6 +6,7 @@ pipeline {
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "abagesh1904"
     GIT_TOKEN = credentials('git-creds')
+    GIT_CREDENTIALS = credentials('token')
   }
   
   stages {
@@ -67,11 +68,11 @@ stage('Push Image') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
            sh "git config --global user.email 'jenkins@ci.com'"
-          sh 'git remote set-url origin  https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
+          sh 'git remote set-url origin  https://abageshwar:$GIT_CREDENTIALS@github.com/abageshwar/gitops-argocd.git'
           sh 'git checkout main'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git remote set-url origin  https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
+          sh 'git remote set-url origin  https://abageshwar:$GIT_CREDENTIALS@github.com/abageshwar/gitops-argocd.git'
           sh 'git push origin main'
         }
       }
