@@ -82,6 +82,7 @@ stage('Push Image') {
 
     stage('Raise PR') {
       steps {
+        sh "export GIT_TOKEN=$GIT_TOKEN"
         sh "bash pr.sh"
       }
     } 
