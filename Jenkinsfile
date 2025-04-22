@@ -52,7 +52,7 @@ stage('Push Image') {
           sh 'git checkout feature-gitea'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git push origin feature-gitea'
+           sh 'git push origin feature-gitea'
         }
       }
     }
