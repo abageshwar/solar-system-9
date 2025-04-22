@@ -40,6 +40,8 @@ stage('Push Image') {
           if (fileExists('gitops-argocd')) {
 
             echo 'Cloned repo already exists - Pulling latest changes'
+            sh ' rm -rf gitops-argocd/jenkins-demo'
+            sh 'git clone -b feature-gitea http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd'
 
             dir("gitops-argocd") {
             }
