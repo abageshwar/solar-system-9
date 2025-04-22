@@ -67,7 +67,7 @@ stage('Push Image') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
           sh "git config --global user.email 'jenkins@ci.com'"
-          sh 'git remote set-url origin https://abageshwar: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@github.com/abageshwar/gitops-argocd.git'
+          sh 'git remote set-url origin  https://$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
           sh 'git checkout feature-gitea'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
