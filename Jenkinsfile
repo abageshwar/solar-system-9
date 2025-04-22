@@ -72,6 +72,8 @@ stage('Push Image') {
           sh 'git checkout main'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
+	  sh 'mkdir -p ~/.ssh'
+	  sh 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
           sh 'git remote set-url origin git@github.com:abageshwar/gitops-argocd.git'
           sh 'git push origin main'
         }
