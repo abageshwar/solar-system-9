@@ -5,8 +5,7 @@ pipeline {
     NAME = "solar-system-9"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "abagesh1904"
-     GIT_TOKEN = credentials('git-creds')
-    GIT_CREDENTIALS = credentials('token')
+    GIT_TOKEN = credentials('git-creds')
   }
   
   stages {
@@ -46,6 +45,7 @@ stage('Push Image') {
              sh 'mkdir -p ~/.ssh'
              sh 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
              sh 'git remote set-url origin git@github.com:abageshwar/gitops-argocd.git'
+             sh 'git checkout -b feature-gitea'
              sh 'git pull origin main'
 
             }
@@ -72,7 +72,6 @@ stage('Push Image') {
         dir("gitops-argocd/jenkins-demo") {
            sh "git config --global user.email 'jenkins@ci.com'"
           sh 'git remote set-url origin git@github.com:abageshwar/gitops-argocd.git'
-          sh 'git checkout feature-gitea'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
 	  sh 'mkdir -p ~/.ssh'
