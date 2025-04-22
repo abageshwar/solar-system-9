@@ -89,7 +89,7 @@ stage('Push Image') {
                         export GITHUB_TOKEN=$GITHUB_TOKEN
                         chmod +x pr.sh
                         ./pr.sh
-                   '''
+                    '''
 }
 
                 }
