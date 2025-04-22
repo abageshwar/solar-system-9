@@ -33,8 +33,26 @@ stage('Push Image') {
   }
 }
 
-
     
+    stage('Clone/Pull Repo') {
+      steps {
+        script {
+          if (fileExists('gitops-argocd')) {
+
+            echo 'Cloned repo already exists - Pulling latest changes'
+
+            dir("gitops-argocd") {
+              sh 'git pull'
+            }
+
+          } else {
+            echo 'Repo does not exists - Cloning the repo'
+            sh 'git clone -b feature-gitea http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd'
+          }
+        }
+      }
+    }
+
     stage('Update Manifest') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
