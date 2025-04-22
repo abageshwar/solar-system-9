@@ -85,6 +85,7 @@ stage('Push Image') {
                withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                         export GITHUB_TOKEN=$GITHUB_TOKEN
+                        chmod +x pr.sh
                         ./pr.sh
                    '''
 }
