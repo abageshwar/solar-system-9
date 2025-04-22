@@ -1,20 +1,16 @@
 echo "Opening a Pull Request"
 
-curl -X 'POST' \
-
-  'git@github.com/abageshwar/gitops-argocd/pulls' \
-  -H 'accept: application/json' \
-  -H "authorization: $ARGOCD_TOKEN" \
+curl -X POST \
+  'https://api.github.com/repos/abageshwar/gitops-argocd/pulls' \
+  -H 'Accept: application/vnd.github+json' \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{
-  "assignee": "abageshwar",
-  "assignees": [
-    "abageshwar"
-  ],
-  "base": "main",
-  "body": "Updated deployment specification with a new image version.",
-  "head": "feature-gitea",
-  "title": "Updated Solar System Image"
+    "title": "Updated Solar System Image",
+    "head": "feature-gitea",
+    "base": "main",
+    "body": "Updated deployment specification with a new image version.",
+    "assignees": ["abageshwar"]
 }'
 
 echo "Success"
