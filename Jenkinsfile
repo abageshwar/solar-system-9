@@ -41,14 +41,14 @@ stage('Push Image') {
 
             echo 'Cloned repo already exists - Pulling latest changes'
             sh ' rm -rf gitops-argocd'
-            sh 'git clone -b feature-gitea https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
+            sh 'git clone -b main https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
 
             dir("gitops-argocd") {
             }
 
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git clone -b feature-gitea https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
+            sh 'git clone -b main https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
           }
         }
       }
@@ -68,7 +68,7 @@ stage('Push Image') {
         dir("gitops-argocd/jenkins-demo") {
            sh "git config --global user.email 'jenkins@ci.com'"
           sh 'git remote set-url origin  https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
-          sh 'git checkout feature-gitea'
+          sh 'git checkout main'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
           sh 'git remote set-url origin  https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
