@@ -84,6 +84,7 @@ stage('Push Image') {
             steps {
                     sh '''
                         export GIT_TOKEN=$GIT_TOKEN
+                        chmod +x pr.sh
                         ./pr.sh
                     '''
                 }
