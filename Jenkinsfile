@@ -82,11 +82,13 @@ stage('Push Image') {
 
         stage('Open PR via Shell Script') {
             steps {
-                    sh '''
-                        export GIT_TOKEN=$GIT_TOKEN
-                        chmod +x pr.sh
+               withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                sh '''
+                        export GITHUB_TOKEN=$GITHUB_TOKEN
                         ./pr.sh
-                    '''
+                   '''
+}
+
                 }
             }
         }
