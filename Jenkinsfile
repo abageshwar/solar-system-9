@@ -45,7 +45,7 @@ stage('Push Image') {
              sh 'mkdir -p ~/.ssh'
              sh 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
              sh 'git remote set-url origin git@github.com:abageshwar/gitops-argocd.git'
-             sh 'git checkout -b feature-gitea'
+             sh 'git checkout feature-gitea'
              sh 'git pull origin main'
 
             }
