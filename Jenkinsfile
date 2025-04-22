@@ -26,7 +26,7 @@ pipeline {
 stage('Push Image') {
   steps {
     script {
-      withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+      withDockerRegistry([credentialsId: "docker-creds", url: ""]) {
         sh "docker push ${IMAGE_REPO}/${NAME}:${VERSION}"
       }
     }
@@ -38,7 +38,7 @@ stage('Push Image') {
     stage('Update Manifest') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
-          sh 'sed -i "s#siddharth67.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
+          sh 'sed -i "s#abageshwar.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
           sh 'cat deployment.yaml'
         }
       }
