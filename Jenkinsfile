@@ -23,13 +23,16 @@ pipeline {
         }
       }
 
-    stage('Push Image') {
-      steps {
-        withDockerRegistry([credentialsId: "docker-creds", url: ""]) {
-          sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
-        }
+stage('Push Image') {
+  steps {
+    script {
+      withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+        sh "docker push ${IMAGE_REPO}/${NAME}:${VERSION}"
       }
     }
+  }
+}
+
 
     
     stage('Update Manifest') {
