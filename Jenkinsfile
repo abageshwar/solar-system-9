@@ -1,7 +1,7 @@
 pipeline {
   agent any
 
-  environment {
+   environment {
     NAME = "solar-system-9"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "abagesh1904"
