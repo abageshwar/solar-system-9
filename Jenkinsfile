@@ -42,7 +42,6 @@ stage('Push Image') {
             echo 'Cloned repo already exists - Pulling latest changes'
 
             dir("gitops-argocd") {
-            sh 'git clone -b feature-gitea http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd'
             }
 
           } else {
