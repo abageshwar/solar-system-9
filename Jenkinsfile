@@ -71,7 +71,7 @@ stage('Push Image') {
           sh 'git checkout feature-gitea'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git remote set-url origin  http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
+          sh 'git remote set-url origin  https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
           sh 'git push origin feature-gitea'
         }
       }
