@@ -41,14 +41,14 @@ stage('Push Image') {
 
             echo 'Cloned repo already exists - Pulling latest changes'
             sh ' rm -rf gitops-argocd'
-            sh 'git clone -b feature-gitea http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd'
+            sh 'git clone -b feature-gitea https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
 
             dir("gitops-argocd") {
             }
 
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git clone -b feature-gitea http://$GIT_TOKEN@github.com/abageshwar/gitops-argocd'
+            sh 'git clone -b feature-gitea https://abageshwar:$GIT_TOKEN@github.com/abageshwar/gitops-argocd.git'
           }
         }
       }
