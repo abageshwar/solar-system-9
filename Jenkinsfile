@@ -2,10 +2,10 @@ pipeline {
   agent any
 
   environment {
-    NAME = "solar-system"
+    NAME = "solar-system-9"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
-    IMAGE_REPO = "siddharth67"
-    GITEA_TOKEN = credentials('git-creds')
+    IMAGE_REPO = "abageshwar"
+    GIT_TOKEN = credentials('git-creds')
   }
   
   stages {
@@ -25,7 +25,7 @@ pipeline {
 
     stage('Push Image') {
       steps {
-        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+        withDockerRegistry([credentialsId: "docker-creds", url: ""]) {
           sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
         }
       }
@@ -45,7 +45,7 @@ pipeline {
       steps {
         dir("gitops-argocd/jenkins-demo") {
           sh "git config --global user.email 'jenkins@ci.com'"
-          sh 'git remote set-url origin http://$GITEA_TOKEN@139.59.21.103:3000/siddharth/gitops-argocd'
+          sh 'git remote set-url origin http://$GIT_TOKEN@139.59.21.103:3000/siddharth/gitops-argocd'
           sh 'git checkout feature-gitea'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
