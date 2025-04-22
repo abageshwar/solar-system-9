@@ -80,10 +80,16 @@ stage('Push Image') {
       }
     }
 
-    stage('Raise PR') {
-      steps {
-        sh "export GIT_TOKEN=$GIT_TOKEN"
-        sh "bash pr.sh"
+        stage('Open PR via Shell Script') {
+            steps {
+                    sh '''
+                        export GIT_TOKEN=$GIT_TOKEN
+                        ./pr.sh
+                    '''
+                }
+            }
+        }
+
       }
     } 
   }
